@@ -93,6 +93,12 @@
     <string name="audio_quality">Audio Quality</string>
     <string name="audio_quality_description">Choose the quality level for audio recordings</string>
     <string name="storage_location">Storage Location</string>
+    <string name="appearance">Appearance</string>
+    <string name="theme">Theme</string>
+    <string name="theme_description">Choose between light, dark, or system default theme</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_system">System Default</string>
     <string name="about">About</string>
     <string name="app_version">App Version</string>
     <string name="privacy_policy">Privacy Policy</string>
@@ -114,12 +120,7 @@
     <string name="recording_thumbnail">Recording Thumbnail</string>
     <string name="recording_options">Options</string>
 
-    <!-- Theme settings -->
-    <string name="theme">Theme</string>
-    <string name="theme_description">Choose the appearance theme for the app</string>
-    <string name="light_mode">Light Mode</string>
-    <string name="dark_mode">Dark Mode</string>
-    <string name="system_default">System Default</string>
+
 
     <!-- Frame rate settings -->
     <string name="frame_rate">Frame Rate</string>

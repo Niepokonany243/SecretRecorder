@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Dark mode application theme -->
+    <!-- App theme using Material3 theme -->
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary_dark</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/secondary_dark</item>
-        <item name="android:windowBackground">@color/background_dark</item>
-        <item name="android:textColorPrimary">@color/on_surface_dark</item>
-        <item name="android:textColorSecondary">@color/on_surface_variant_dark</item>
-        <item name="colorSurface">@color/surface_dark</item>
-        <item name="colorOnSurface">@color/on_surface_dark</item>
-        <item name="colorSurfaceVariant">@color/surface_variant_dark</item>
-        <item name="colorOnSurfaceVariant">@color/on_surface_variant_dark</item>
-        <item name="colorOutline">@color/outline_dark</item>
+        <!-- Apply our Material Design theme overlay to override default purple colors -->
+        <item name="materialThemeOverlay">@style/ThemeOverlay.SecretRecorder.MaterialComponents</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary</item>
+        <item name="colorAccent">@color/secondary</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:textColorPrimary">@color/on_surface</item>
+        <item name="android:textColorSecondary">@color/on_surface_variant</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
+        <item name="colorOutline">@color/outline</item>
         <item name="appBarLayoutStyle">@style/Widget.Material3.AppBarLayout</item>
         <item name="toolbarStyle">@style/Widget.Material3.Toolbar</item>
-        <item name="android:textColor">@color/on_surface_dark</item>
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="colorControlNormal">@color/on_surface</item>
     </style>
 
     <!-- NoActionBar theme for activities using a Toolbar -->
@@ -25,16 +28,36 @@
     </style>
 
     <!-- Settings activity theme -->
-    <style name="AppTheme.Settings" parent="AppTheme.NoActionBar">
+    <style name="AppTheme.Settings" parent="AppTheme">
         <!-- Additional customizations for settings -->
-        <item name="android:textColorPrimary">@color/on_surface_dark</item>
-        <item name="android:textColorSecondary">@color/on_surface_variant_dark</item>
-        <item name="colorControlNormal">@color/on_surface_dark</item>
-        <item name="chipTextAppearance">@style/ChipTextAppearance.Dark</item>
-        <item name="android:editTextColor">@color/on_surface_dark</item>
-        <item name="android:textColorHint">@color/on_surface_variant_dark</item>
-        <item name="colorControlActivated">@color/primary_dark</item>
-        <item name="radioButtonStyle">@style/Widget.SecretRecorder.RadioButton.Dark</item>
-        <item name="tabStyle">@style/Widget.SecretRecorder.TabLayout.Dark</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:editTextColor">?attr/colorOnSurface</item>
+        <item name="android:textColorHint">?attr/colorOnSurfaceVariant</item>
+        <item name="colorControlActivated">?attr/colorPrimary</item>
+    </style>
+
+    <!-- Toolbar style -->
+    <style name="Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="titleTextColor">?attr/colorOnSurface</item>
+        <item name="subtitleTextColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <!-- Button style -->
+    <style name="Button" parent="Widget.Material3.Button">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+    </style>
+
+    <!-- Text appearance styles -->
+    <style name="TextAppearance" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- Chip text appearance -->
+    <style name="ChipTextAppearance" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
     </style>
 </resources>

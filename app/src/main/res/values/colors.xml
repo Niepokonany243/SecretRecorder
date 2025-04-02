@@ -59,31 +59,12 @@
     <color name="pinNumberBackgroundColor">@color/surface_variant</color>
     <color name="pinActionBackgroundColor">@color/secondary_container</color>
 
-    <!-- Dark theme colors - Updated to avoid purple tint and ensure consistency -->
-    <color name="primary_dark">#FF2196F3</color>
-    <color name="on_primary_dark">#FFFFFFFF</color>
-    <color name="primary_container_dark">#FF0D47A1</color>
-    <color name="on_primary_container_dark">#FFE3F2FD</color>
-    <color name="secondary_dark">#FF607D8B</color>
-    <color name="on_secondary_dark">#FFFFFFFF</color>
-    <color name="secondary_container_dark">#FF37474F</color>
-    <color name="on_secondary_container_dark">#FFECEFF1</color>
-    <color name="tertiary_dark">#FF29B6F6</color>
-    <color name="on_tertiary_dark">#FFFFFFFF</color>
-    <color name="tertiary_container_dark">#FF01579B</color>
-    <color name="on_tertiary_container_dark">#FFE1F5FE</color>
-    <color name="background_dark">#FF121212</color>
-    <color name="on_background_dark">#FFEEEEEE</color>
-    <color name="surface_dark">#FF121212</color>
-    <color name="on_surface_dark">#FFEEEEEE</color>
-    <color name="surface_variant_dark">#FF1E1E1E</color>
-    <color name="on_surface_variant_dark">#FFDDDDDD</color>
-    <color name="outline_dark">#FF78909C</color>
 
-    <!-- Added missing color definitions for themes -->
-    <color name="purple_200">#BB86FC</color>
-    <color name="purple_500">#6200EE</color>
-    <color name="purple_700">#3700B3</color>
+
+    <!-- Theme color definitions (using teal/blue instead of purple) -->
+    <color name="purple_200">#7FD1E7</color> <!-- Light teal (renamed for compatibility) -->
+    <color name="purple_500">#006877</color> <!-- Teal blue (renamed for compatibility) -->
+    <color name="purple_700">#004E5B</color> <!-- Dark teal (renamed for compatibility) -->
     <color name="teal_200">#03DAC5</color>
     <color name="teal_700">#018786</color>
     <color name="red">#B00020</color>

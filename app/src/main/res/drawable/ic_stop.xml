@@ -4,7 +4,8 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
+    <!-- Use a red square with no tint to ensure it's always red -->
     <path
-        android:fillColor="#FFFFFF"
+        android:fillColor="#FFEF5350"
         android:pathData="M6,6h12v12h-12z" />
-</vector> 
+</vector>

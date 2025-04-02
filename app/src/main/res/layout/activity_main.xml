@@ -89,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
                     android:visibility="gone" />
             </LinearLayout>
@@ -270,7 +270,7 @@
                 app:maxImageSize="38dp"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
                 app:srcCompat="@drawable/ic_record"
-                app:tint="?attr/colorOnPrimary" />
+                app:tint="@null" />
 
             <!-- Schedule Button -->
             <com.google.android.material.button.MaterialButton

@@ -18,7 +18,7 @@
             android:entries="@array/video_fps_entries"
             android:entryValues="@array/video_fps_values"
             android:defaultValue="30" />
-            
+
         <SwitchPreference
             android:key="audio_only"
             android:title="Audio Only Mode"
@@ -40,26 +40,18 @@
             android:dependency="app_lock_enabled" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Appearance">
-        <ListPreference
-            android:key="app_theme"
-            android:title="Theme"
-            android:summary="Select light or dark theme"
-            android:entries="@array/theme_entries"
-            android:entryValues="@array/theme_values"
-            android:defaultValue="system" />
-    </PreferenceCategory>
+
 
     <PreferenceCategory android:title="About">
         <Preference
             android:key="app_version"
             android:title="App Version"
             android:summary="1.0.0" />
-            
+
         <Preference
             android:key="privacy_policy"
             android:title="Privacy Policy"
             android:summary="View our privacy policy" />
     </PreferenceCategory>
 
-</PreferenceScreen> 
+</PreferenceScreen>

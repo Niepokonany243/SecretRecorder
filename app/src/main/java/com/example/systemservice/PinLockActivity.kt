@@ -40,10 +40,10 @@ class PinLockActivity : SecretRecorderBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         // Apply theme based on settings
         applyTheme()
-        
+
         setContentView(R.layout.activity_pin_lock)
 
         // Only add back button in Change PIN mode
@@ -60,10 +60,10 @@ class PinLockActivity : SecretRecorderBaseActivity() {
 
         // Initialize views
         initializeViews()
-        
+
         // Set up the UI based on the current mode
         setupUIForMode()
-        
+
         // Setup button click listeners
         setupClickListeners()
     }
@@ -75,51 +75,17 @@ class PinLockActivity : SecretRecorderBaseActivity() {
     }
 
     private fun applyTheme() {
-        // Apply theme based on settings
-        val settingsManager = AppSettingsManager(this)
-        val theme = settingsManager.getThemeMode()
-        
-        when (theme) {
-            "dark" -> {
-                setTheme(R.style.AppTheme_Dark)
-                // Apply dark styling to PIN dots
-                updatePinDotsForDarkMode(true)
-            }
-            "light" -> {
-                setTheme(R.style.AppTheme_Light)
-                // Apply light styling to PIN dots
-                updatePinDotsForDarkMode(false)
-            }
-            else -> {
-                // Use system default
-                // Check if we're in night mode
-                val nightModeFlags = resources.configuration.uiMode and 
-                        android.content.res.Configuration.UI_MODE_NIGHT_MASK
-                val isDarkMode = nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES
-                
-                if (isDarkMode) {
-                    setTheme(R.style.AppTheme_Dark)
-                } else {
-                    setTheme(R.style.AppTheme_Light)
-                }
-                
-                // Apply styling to PIN dots based on current theme
-                updatePinDotsForDarkMode(isDarkMode)
-            }
-        }
-    }
-    
-    private fun updatePinDotsForDarkMode(isDarkMode: Boolean) {
-        // No UI elements are created yet, so we'll need to update these in initializeViews()
+        // Always use light theme
+        setTheme(R.style.AppTheme_Light)
     }
 
     private fun initializeViews() {
         titleText = findViewById(R.id.titleText)
         messageText = findViewById(R.id.messageText)
-        
+
         // If forgotPinText is present in the layout
         forgotPinText = findViewById(R.id.forgotPinText)
-        
+
         // Initialize PIN dots
         pinDots = arrayOf(
             findViewById(R.id.pinDot1),
@@ -127,13 +93,13 @@ class PinLockActivity : SecretRecorderBaseActivity() {
             findViewById(R.id.pinDot3),
             findViewById(R.id.pinDot4)
         )
-        
+
         // Initialize number buttons
         for (i in 0..9) {
             val buttonId = resources.getIdentifier("pinButton$i", "id", packageName)
             numberButtons.add(findViewById(buttonId))
         }
-        
+
         // Update these to use the IDs that exist in our layout
         buttonClear = findViewById(R.id.pinButtonClear)
         buttonDelete = findViewById(R.id.pinButtonDelete)
@@ -166,10 +132,10 @@ class PinLockActivity : SecretRecorderBaseActivity() {
                 if (currentPin.length < 4) {
                     // Add the number to the PIN
                     currentPin.append(i)
-                    
+
                     // Update the PIN dots
                     updatePinDisplay()
-                    
+
                     // Check if PIN is complete (4 digits)
                     if (currentPin.length == 4) {
                         Handler(Looper.getMainLooper()).postDelayed({
@@ -179,12 +145,12 @@ class PinLockActivity : SecretRecorderBaseActivity() {
                 }
             }
         }
-        
+
         // Clear button
         buttonClear.setOnClickListener {
             clearPin()
         }
-        
+
         // Delete button
         buttonDelete.setOnClickListener {
             if (currentPin.isNotEmpty()) {
@@ -192,7 +158,7 @@ class PinLockActivity : SecretRecorderBaseActivity() {
                 updatePinDisplay()
             }
         }
-        
+
         // Forgot PIN text
         forgotPinText.setOnClickListener {
             showForgotPinDialog()
@@ -220,17 +186,17 @@ class PinLockActivity : SecretRecorderBaseActivity() {
 
     private fun verifyPin() {
         val savedPin = settingsManager.getAppPin()
-        
+
         if (currentPin.toString() == savedPin) {
             // PIN matches, proceed to main app
             proceedToApp()
         } else {
             // PIN doesn't match
             showErrorAnimation()
-            
+
             // Increment attempt count
             attemptCount++
-            
+
             if (attemptCount >= MAX_ATTEMPTS) {
                 // Too many failed attempts
                 showTooManyAttemptsDialog()
@@ -248,7 +214,7 @@ class PinLockActivity : SecretRecorderBaseActivity() {
             // First entry, store the PIN
             confirmPin.append(currentPin)
             currentPin.clear()
-            
+
             // Update UI for confirmation
             messageText.text = getString(R.string.confirm_pin)
             updatePinDisplay()
@@ -258,10 +224,10 @@ class PinLockActivity : SecretRecorderBaseActivity() {
                 // PINs match, save the PIN
                 settingsManager.setAppPin(currentPin.toString())
                 settingsManager.setAppLockEnabled(true)
-                
+
                 // Show success message
                 Toast.makeText(this, "PIN set successfully", Toast.LENGTH_SHORT).show()
-                
+
                 // Return to settings
                 finish()
             } else {
@@ -271,7 +237,7 @@ class PinLockActivity : SecretRecorderBaseActivity() {
                 confirmPin.clear()
                 currentPin.clear()
                 updatePinDisplay()
-                
+
                 // After a delay, reset to initial state
                 Handler(Looper.getMainLooper()).postDelayed({
                     messageText.text = getString(R.string.enter_pin)
@@ -283,12 +249,12 @@ class PinLockActivity : SecretRecorderBaseActivity() {
     private fun changePin() {
         // This function handles changing an existing PIN
         // The process involves verifying the old PIN, then setting a new one
-        
+
         if (currentPin.toString() == settingsManager.getAppPin()) {
             // Old PIN verified, now set a new PIN
             // Change mode to set new PIN
             pinMode = MODE_SET
-            
+
             // Clear current PIN and update UI
             currentPin.clear()
             messageText.text = getString(R.string.enter_new_pin)
@@ -322,7 +288,7 @@ class PinLockActivity : SecretRecorderBaseActivity() {
                 // Reset PIN
                 settingsManager.setAppPin("")
                 settingsManager.setAppLockEnabled(false)
-                
+
                 // Restart activity in set mode
                 val intent = Intent(this, PinLockActivity::class.java)
                 intent.putExtra("mode", MODE_SET)
@@ -347,7 +313,7 @@ class PinLockActivity : SecretRecorderBaseActivity() {
     private fun proceedToApp() {
         // Set flag to prevent app lock check cycle
         SecretRecorderBaseActivity.isJustUnlocked = true
-        
+
         // Navigate to the main activity
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

@@ -1,15 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Override specific colors for dark mode -->
-    <color name="mainActionButtonBackground">@color/secondary_container_dark</color>
-    <color name="mainActionButtonForeground">@color/on_secondary_container_dark</color>
-    <color name="controlPanelBackground">@color/surface_dark</color>
-    <color name="pinNumberBackgroundColor">@color/surface_variant_dark</color>
-    <color name="pinActionBackgroundColor">@color/secondary_container_dark</color>
-    <color name="recordingTimerColor">@color/primary_dark</color>
-    <color name="settingsButtonColor">@color/secondary_dark</color>
-    <color name="recordButtonColor">#FFFF5252</color>
-    <color name="recordButtonColorActive">#FFFF8A80</color>
-    <color name="semiTransparentBackground">#80121212</color>
-    <color name="overlayBackground">#60121212</color>
+    <!-- Material 3 inspired dark color palette -->
+    <color name="seed">#FF006877</color>
+    <color name="primary">#FF7FD1E7</color>
+    <color name="on_primary">#FF00363F</color>
+    <color name="primary_container">#FF004E5B</color>
+    <color name="on_primary_container">#FF9AECFF</color>
+    <color name="secondary">#FFB1CBD2</color>
+    <color name="on_secondary">#FF1C3439</color>
+    <color name="secondary_container">#FF334B50</color>
+    <color name="on_secondary_container">#FFCDE7EE</color>
+    <color name="tertiary">#FFBCC5EB</color>
+    <color name="on_tertiary">#FF252F4D</color>
+    <color name="tertiary_container">#FF3C4565</color>
+    <color name="on_tertiary_container">#FFDAE1FF</color>
+    <color name="error">#FFFF8A80</color>
+    <color name="on_error">#FF680003</color>
+    <color name="error_container">#FF930006</color>
+    <color name="on_error_container">#FFFFB4AB</color>
+    <color name="background">#FF191C1D</color>
+    <color name="on_background">#FFE1E3E3</color>
+    <color name="surface">#FF191C1D</color>
+    <color name="on_surface">#FFE1E3E3</color>
+    <color name="surface_variant">#FF3F484A</color>
+    <color name="on_surface_variant">#FFBFC8CA</color>
+    <color name="outline">#FF899294</color>
+    <color name="outline_variant">#FF3F484A</color>
+    <color name="scrim">#FF000000</color>
+
+    <!-- Legacy colors for backward compatibility -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Colors referenced in styles.xml but not defined here -->
+    <color name="colorPrimary">@color/primary</color>
+    <color name="colorPrimaryDark">@color/primary</color>
+    <color name="colorAccent">@color/secondary</color>
+
+    <!-- App specific colors -->
+    <color name="recordButtonColor">#FFEF5350</color>
+    <color name="recordButtonColorActive">#FFB71C1C</color>
+    <color name="controlPanelBackground">@color/surface</color>
+    <color name="semiTransparentBlack">#99000000</color>
+    <color name="semiTransparentBackground">#80000000</color>
+    <color name="overlayBackground">#60000000</color>
+    <color name="recordingIndicatorRed">@color/error</color>
+    <color name="recordingTimerColor">@color/primary</color>
+    <color name="settingsButtonColor">@color/secondary</color>
+    <color name="videoHighQualityColor">#FF43A047</color>
+    <color name="videoMediumQualityColor">#FFFFB74D</color>
+    <color name="videoLowQualityColor">#FFF44336</color>
+
+    <!-- Main action button colors (for side buttons in main activity) -->
+    <color name="mainActionButtonBackground">@color/secondary_container</color>
+    <color name="mainActionButtonForeground">@color/on_secondary_container</color>
+
+    <!-- PIN Lock colors -->
+    <color name="pinNumberBackgroundColor">@color/surface_variant</color>
+    <color name="pinActionBackgroundColor">@color/secondary_container</color>
+
+    <!-- Theme color definitions (using teal/blue instead of purple) -->
+    <color name="purple_200">#7FD1E7</color> <!-- Light teal (renamed for compatibility) -->
+    <color name="purple_500">#006877</color> <!-- Teal blue (renamed for compatibility) -->
+    <color name="purple_700">#004E5B</color> <!-- Dark teal (renamed for compatibility) -->
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#018786</color>
+    <color name="red">#CF6679</color>
 </resources>
