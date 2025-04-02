@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Override specific colors for dark mode -->
+    <color name="mainActionButtonBackground">@color/secondary_container_dark</color>
+    <color name="mainActionButtonForeground">@color/on_secondary_container_dark</color>
+    <color name="controlPanelBackground">@color/surface_dark</color>
+    <color name="pinNumberBackgroundColor">@color/surface_variant_dark</color>
+    <color name="pinActionBackgroundColor">@color/secondary_container_dark</color>
+    <color name="recordingTimerColor">@color/primary_dark</color>
+    <color name="settingsButtonColor">@color/secondary_dark</color>
+    <color name="recordButtonColor">#FFFF5252</color>
+    <color name="recordButtonColorActive">#FFFF8A80</color>
+    <color name="semiTransparentBackground">#80121212</color>
+    <color name="overlayBackground">#60121212</color>
+</resources>

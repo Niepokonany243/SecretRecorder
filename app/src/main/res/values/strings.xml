@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Secret Recorder</string>
+    <string name="start_service">Start Service</string>
+    <string name="stop_service">Stop Service</string>
+    <string name="view_recordings">Recordings</string>
+    <string name="service_notification_title">System Service</string>
+    <string name="service_notification_text">Service is running in the background</string>
+    <string name="permissions_required">Camera and microphone permissions are required</string>
+    
+    <!-- New strings for the improved UI -->
+    <string name="start_recording">Start Recording</string>
+    <string name="stop_recording">Stop Recording</string>
+    <string name="switch_camera">Switch Camera</string>
+    <string name="settings">Settings</string>
+    <string name="schedule">Schedule</string>
+    <string name="info">Info</string>
+    <string name="not_recording">Not recording</string>
+    <string name="recording_active">Recording…</string>
+    <string name="toggle_flash">Toggle Flash</string>
+    
+    <!-- Main Activity -->
+    <string name="record">Record</string>
+    <string name="stop">Stop</string>
+    
+    <!-- Recording UI -->
+    <string name="recording">Recording…</string>
+    <string name="recording_time">00:00</string>
+    <string name="recording_started">Recording started</string>
+    <string name="recording_stopped">Recording stopped</string>
+    
+    <!-- Quality options -->
+    <string name="quality_high">High (1080p)</string>
+    <string name="quality_medium">Medium (720p)</string>
+    <string name="quality_low">Low (480p)</string>
+    <string name="quality_ultra">Ultra (2160p 4K)</string>
+    
+    <!-- Settings items -->
+    <string name="settings_video_quality">Video Quality</string>
+    <string name="settings_audio_quality">Audio Quality</string>
+    <string name="settings_storage_location">Storage Location</string>
+    <string name="settings_max_duration">Maximum Duration</string>
+    <string name="settings_auto_start">Auto-start Recording</string>
+    
+    <!-- Scheduling options -->
+    <string name="schedule_recording">Schedule Recording</string>
+    <string name="schedule_start_time">Start Time</string>
+    <string name="schedule_duration">Duration</string>
+    <string name="schedule_repeat">Repeat</string>
+    <string name="schedule_save">Save Schedule</string>
+    
+    <!-- Recording browser -->
+    <string name="recordings_empty">No recordings found</string>
+    <string name="recording_details">Recording Details</string>
+    <string name="recording_delete">Delete</string>
+    <string name="recording_share">Share</string>
+    <string name="recording_rename">Rename</string>
+    
+    <!-- New strings for the video preview functionality -->
+    <string name="close_preview">Close preview</string>
+    <string name="share_video">Share video</string>
+    <string name="delete_video">Delete video</string>
+    <string name="error_previewing_video">Error previewing video</string>
+    
+    <!-- PIN Lock -->
+    <string name="enter_pin">Enter PIN</string>
+    <string name="pin_incorrect">Incorrect PIN. Please try again.</string>
+    <string name="pin_correct">PIN Correct</string>
+    <string name="pin_does_not_match">PINs do not match. Try again.</string>
+    <string name="enter_new_pin">Enter new PIN</string>
+    <string name="confirm_pin">Confirm PIN</string>
+    <string name="pin_changed">PIN changed successfully</string>
+    <string name="clear">Clear</string>
+    <string name="delete">Delete</string>
+    
+    <!-- App Lock -->
+    <string name="app_lock_title">App Locked</string>
+    <string name="app_lock_message">Enter your PIN to unlock the app</string>
+    <string name="unlock_app">Unlock App</string>
+    <string name="emergency_exit">Emergency Exit</string>
+    
+    <!-- Settings Activity -->
+    <string name="security">Security</string>
+    <string name="app_lock">App Lock</string>
+    <string name="app_lock_description">Lock the app with a PIN for better privacy</string>
+    <string name="change_pin">Change PIN</string>
+    <string name="change_pin_description">Update your app lock PIN code</string>
+    <string name="encryption">Encryption</string>
+    <string name="encryption_description">Encrypt your recordings for additional security</string>
+    <string name="recording_settings">Recording Settings</string>
+    <string name="video_quality">Video Quality</string>
+    <string name="video_quality_description">Higher quality videos will have better resolution but will use more storage space</string>
+    <string name="audio_quality">Audio Quality</string>
+    <string name="audio_quality_description">Choose the quality level for audio recordings</string>
+    <string name="storage_location">Storage Location</string>
+    <string name="about">About</string>
+    <string name="app_version">App Version</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="navigate">Navigate</string>
+    <string name="version_format">Version %1$s (%2$d)</string>
+    <string name="app_tagline">Discreet audio and video recording</string>
+    
+    <!-- Recordings Browser -->
+    <string name="recordings">Recordings</string>
+    <string name="no_recordings">No Recordings</string>
+    <string name="no_recordings_message">Tap the record button on the main screen to start creating recordings</string>
+    <string name="search_recordings">Search recordings</string>
+    <string name="filter">Filter</string>
+    <string name="share">Share</string>
+    <string name="rename">Rename</string>
+    <string name="all">All</string>
+    <string name="video">Video</string>
+    <string name="audio_only">Audio Only</string>
+    <string name="recording_thumbnail">Recording Thumbnail</string>
+    <string name="recording_options">Options</string>
+    
+    <!-- Theme settings -->
+    <string name="theme">Theme</string>
+    <string name="theme_description">Choose the appearance theme for the app</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="system_default">System Default</string>
+    
+    <!-- Frame rate settings -->
+    <string name="frame_rate">Frame Rate</string>
+    <string name="frame_rate_description">Higher frame rates result in smoother video but use more storage space</string>
+    
+    <!-- Set PIN related -->
+    <string name="set_pin">Set PIN</string>
+    
+    <!-- New string for the back button description -->
+    <string name="back_button_description">Back</string>
+</resources>

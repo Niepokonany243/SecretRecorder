@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recordingItemCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="2dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeColor="@color/outline_variant"
+    app:strokeWidth="1dp"
+    app:cardBackgroundColor="?attr/colorSurface">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Thumbnail Container -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/thumbnailContainer"
+            android:layout_width="120dp"
+            android:layout_height="0dp"
+            android:layout_margin="0dp"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="h,16:9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Video Thumbnail -->
+            <ImageView
+                android:id="@+id/recordingThumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/recording_thumbnail"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <!-- Audio icon for audio recordings -->
+            <ImageView
+                android:id="@+id/audioIndicator"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:alpha="0.9"
+                android:src="@drawable/ic_audio"
+                android:visibility="gone"
+                app:tint="?attr/colorOnPrimary" />
+
+            <!-- Duration Badge -->
+            <TextView
+                android:id="@+id/recordingDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_overlay_background"
+                android:padding="4dp"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="12sp"
+                tools:text="03:45" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Recording Metadata -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/metadataContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/thumbnailContainer"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Recording Title -->
+            <TextView
+                android:id="@+id/recordingTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/recordingMenu"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Recording_2023-03-26_14-30-45" />
+
+            <!-- Recording Date -->
+            <TextView
+                android:id="@+id/recordingDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:drawableStart="@drawable/ic_calendar"
+                android:drawablePadding="4dp"
+                android:drawableTint="?attr/colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recordingTitle"
+                tools:text="March 26, 2023" />
+
+            <!-- Recording Size -->
+            <TextView
+                android:id="@+id/recordingSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:drawableStart="@drawable/ic_file_size"
+                android:drawablePadding="4dp"
+                android:drawableTint="?attr/colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recordingDate"
+                tools:text="24.5 MB" />
+
+            <!-- Recording Quality -->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/recordingQuality"
+                style="@style/Widget.MaterialComponents.Chip.Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:textSize="10sp"
+                app:chipBackgroundColor="?attr/colorPrimaryContainer"
+                app:chipMinHeight="24dp"
+                app:chipTextAppearance="@style/ChipTextAppearance.Light"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                tools:text="HD" />
+
+            <!-- Options Menu -->
+            <ImageButton
+                android:id="@+id/recordingMenu"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/recording_options"
+                android:src="@drawable/ic_more_vert"
+                app:tint="?attr/colorOnSurfaceVariant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Selection Checkmark -->
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/selectionCheckmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

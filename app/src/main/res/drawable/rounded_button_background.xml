@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/colorControlHighlight">
+    <item android:id="@android:id/mask">
+        <shape android:shape="oval">
+            <solid android:color="?attr/colorSurface" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:startColor="@color/recordButtonColor"
+                android:endColor="#FFFF5252"
+                android:angle="135" />
+            <stroke
+                android:width="2dp"
+                android:color="@color/on_primary_container" />
+        </shape>
+    </item>
+</ripple>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material 3 inspired color palette -->
+    <color name="seed">#FF006877</color>
+    <color name="primary">#FF006877</color>
+    <color name="on_primary">#FFFFFFFF</color>
+    <color name="primary_container">#FF9AECFF</color>
+    <color name="on_primary_container">#FF001F25</color>
+    <color name="secondary">#FF4A6268</color>
+    <color name="on_secondary">#FFFFFFFF</color>
+    <color name="secondary_container">#FFCDE7EE</color>
+    <color name="on_secondary_container">#FF051F24</color>
+    <color name="tertiary">#FF535D7E</color>
+    <color name="on_tertiary">#FFFFFFFF</color>
+    <color name="tertiary_container">#FFDAE1FF</color>
+    <color name="on_tertiary_container">#FF0F1A37</color>
+    <color name="error">#FFBA1A1A</color>
+    <color name="on_error">#FFFFFFFF</color>
+    <color name="error_container">#FFFFDAD6</color>
+    <color name="on_error_container">#FF410002</color>
+    <color name="background">#FFFAFDFD</color>
+    <color name="on_background">#FF191C1D</color>
+    <color name="surface">#FFFAFDFD</color>
+    <color name="on_surface">#FF191C1D</color>
+    <color name="surface_variant">#FFDBE4E6</color>
+    <color name="on_surface_variant">#FF3F484A</color>
+    <color name="outline">#FF6F797B</color>
+    <color name="outline_variant">#FFBFC8CA</color>
+    <color name="scrim">#FF000000</color>
+
+    <!-- Legacy colors for backward compatibility -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Colors referenced in styles.xml but not defined here -->
+    <color name="colorPrimary">@color/primary</color>
+    <color name="colorPrimaryDark">@color/primary</color>
+    <color name="colorAccent">@color/secondary</color>
+
+    <!-- App specific colors -->
+    <color name="recordButtonColor">#FFEF5350</color>
+    <color name="recordButtonColorActive">#FFB71C1C</color>
+    <color name="controlPanelBackground">@color/surface</color>
+    <color name="semiTransparentBlack">#99000000</color>
+    <color name="semiTransparentBackground">#80000000</color>
+    <color name="overlayBackground">#60000000</color>
+    <color name="recordingIndicatorRed">@color/error</color>
+    <color name="recordingTimerColor">@color/primary</color>
+    <color name="settingsButtonColor">@color/secondary</color>
+    <color name="videoHighQualityColor">#FF43A047</color>
+    <color name="videoMediumQualityColor">#FFFFB74D</color>
+    <color name="videoLowQualityColor">#FFF44336</color>
+
+    <!-- Main action button colors (for side buttons in main activity) -->
+    <color name="mainActionButtonBackground">@color/secondary_container</color>
+    <color name="mainActionButtonForeground">@color/on_secondary_container</color>
+
+    <!-- PIN Lock colors -->
+    <color name="pinNumberBackgroundColor">@color/surface_variant</color>
+    <color name="pinActionBackgroundColor">@color/secondary_container</color>
+
+    <!-- Dark theme colors - Updated to avoid purple tint and ensure consistency -->
+    <color name="primary_dark">#FF2196F3</color>
+    <color name="on_primary_dark">#FFFFFFFF</color>
+    <color name="primary_container_dark">#FF0D47A1</color>
+    <color name="on_primary_container_dark">#FFE3F2FD</color>
+    <color name="secondary_dark">#FF607D8B</color>
+    <color name="on_secondary_dark">#FFFFFFFF</color>
+    <color name="secondary_container_dark">#FF37474F</color>
+    <color name="on_secondary_container_dark">#FFECEFF1</color>
+    <color name="tertiary_dark">#FF29B6F6</color>
+    <color name="on_tertiary_dark">#FFFFFFFF</color>
+    <color name="tertiary_container_dark">#FF01579B</color>
+    <color name="on_tertiary_container_dark">#FFE1F5FE</color>
+    <color name="background_dark">#FF121212</color>
+    <color name="on_background_dark">#FFEEEEEE</color>
+    <color name="surface_dark">#FF121212</color>
+    <color name="on_surface_dark">#FFEEEEEE</color>
+    <color name="surface_variant_dark">#FF1E1E1E</color>
+    <color name="on_surface_variant_dark">#FFDDDDDD</color>
+    <color name="outline_dark">#FF78909C</color>
+
+    <!-- Added missing color definitions for themes -->
+    <color name="purple_200">#BB86FC</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#018786</color>
+    <color name="red">#B00020</color>
+</resources>

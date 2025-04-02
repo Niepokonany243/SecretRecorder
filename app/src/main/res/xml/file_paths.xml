@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Make external media dirs available for sharing -->
+    <external-media-path name="recordings" path="Recordings" />
+    
+    <!-- Fallback for older devices -->
+    <files-path name="internal_recordings" path="." />
+    
+    <!-- Allow access to cache for temporary files -->
+    <cache-path name="cache" path="." />
+</paths> 

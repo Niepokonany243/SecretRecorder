@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="Recording Settings">
+        <ListPreference
+            android:key="video_quality"
+            android:title="Video Quality"
+            android:summary="Select video recording resolution"
+            android:entries="@array/video_quality_entries"
+            android:entryValues="@array/video_quality_values"
+            android:defaultValue="720p" />
+
+        <ListPreference
+            android:key="video_fps"
+            android:title="Video Frame Rate"
+            android:summary="Select frames per second (FPS)"
+            android:entries="@array/video_fps_entries"
+            android:entryValues="@array/video_fps_values"
+            android:defaultValue="30" />
+            
+        <SwitchPreference
+            android:key="audio_only"
+            android:title="Audio Only Mode"
+            android:summary="Record only audio (no video)"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Security">
+        <SwitchPreference
+            android:key="app_lock_enabled"
+            android:title="App Lock"
+            android:summary="Require password to open the app"
+            android:defaultValue="false" />
+
+        <Preference
+            android:key="change_password"
+            android:title="Change Password"
+            android:summary="Set a new password for app lock"
+            android:dependency="app_lock_enabled" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Appearance">
+        <ListPreference
+            android:key="app_theme"
+            android:title="Theme"
+            android:summary="Select light or dark theme"
+            android:entries="@array/theme_entries"
+            android:entryValues="@array/theme_values"
+            android:defaultValue="system" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="About">
+        <Preference
+            android:key="app_version"
+            android:title="App Version"
+            android:summary="1.0.0" />
+            
+        <Preference
+            android:key="privacy_policy"
+            android:title="Privacy Policy"
+            android:summary="View our privacy policy" />
+    </PreferenceCategory>
+
+</PreferenceScreen> 

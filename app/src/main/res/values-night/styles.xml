@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark mode application theme -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/secondary_dark</item>
+        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="android:textColorPrimary">@color/on_surface_dark</item>
+        <item name="android:textColorSecondary">@color/on_surface_variant_dark</item>
+        <item name="colorSurface">@color/surface_dark</item>
+        <item name="colorOnSurface">@color/on_surface_dark</item>
+        <item name="colorSurfaceVariant">@color/surface_variant_dark</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant_dark</item>
+        <item name="colorOutline">@color/outline_dark</item>
+        <item name="appBarLayoutStyle">@style/Widget.Material3.AppBarLayout</item>
+        <item name="toolbarStyle">@style/Widget.Material3.Toolbar</item>
+        <item name="android:textColor">@color/on_surface_dark</item>
+    </style>
+
+    <!-- NoActionBar theme for activities using a Toolbar -->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Settings activity theme -->
+    <style name="AppTheme.Settings" parent="AppTheme.NoActionBar">
+        <!-- Additional customizations for settings -->
+        <item name="android:textColorPrimary">@color/on_surface_dark</item>
+        <item name="android:textColorSecondary">@color/on_surface_variant_dark</item>
+        <item name="colorControlNormal">@color/on_surface_dark</item>
+        <item name="chipTextAppearance">@style/ChipTextAppearance.Dark</item>
+        <item name="android:editTextColor">@color/on_surface_dark</item>
+        <item name="android:textColorHint">@color/on_surface_variant_dark</item>
+        <item name="colorControlActivated">@color/primary_dark</item>
+        <item name="radioButtonStyle">@style/Widget.SecretRecorder.RadioButton.Dark</item>
+        <item name="tabStyle">@style/Widget.SecretRecorder.TabLayout.Dark</item>
+    </style>
+</resources>

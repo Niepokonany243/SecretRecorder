@@ -1,0 +1,13 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Create a md file under same folder and as you are following each step, list down the actions you are taking. Observe on possible sources of the problem and distill to most likely sources before actual code fix.
+
+If you are stuck, instead of assuming and doing the things in your own way, search for similar patterns across those folders, reflect on these possible implementations, distill those down to 1-2 combinations, and then validate your assumptions before each step implementations.
+
+
+Analyze deeply, research extensively, evaluate all perspectives, consider every related factor, compare multiple approaches, anticipate consequences, optimize solutions, identify patterns, synthesize information, challenge assumptions, and generate innovative insights—especially in the context of beautiful, highly creative, advanced, and modern design. Prioritize aesthetics, functionality, and originality while integrating cutting-edge techniques, emerging trends, and timeless principles. Explore unconventional ideas, balance form and function, and refine designs to achieve both visual and practical excellence.
+
+- Run app after to test if it will even run.
