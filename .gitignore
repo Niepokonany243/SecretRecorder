@@ -74,3 +74,9 @@ gradle-wrapper.zip
 gradle-8.0-bin.zip
 gradle-8.9-bin.zip
 *.zip
+gradle/wrapper/dists/
+app/build/
+.gradle/
+executionHistory.bin
+merger.xml
+classes*.dex

@@ -1,1 +1,7 @@
 gradle-wrapper.zip filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.apk filter=lfs diff=lfs merge=lfs -text
+*.aab filter=lfs diff=lfs merge=lfs -text
+*.jar filter=lfs diff=lfs merge=lfs -text
+*.keystore filter=lfs diff=lfs merge=lfs -text
+*.jks filter=lfs diff=lfs merge=lfs -text
