@@ -343,36 +343,41 @@ class RecordingsBrowserActivity : AppCompatActivity() {
 
     private fun playRecording(recording: RecordingFile) {
         try {
-            // Create content URI using FileProvider
-            val fileUri = FileProvider.getUriForFile(
-                this,
-                "${applicationContext.packageName}.fileprovider",
-                recording.file
-            )
-
-            // Create intent to play file
-            val intent = Intent(Intent.ACTION_VIEW).apply {
-                if (recording.isVideo) {
-                    setDataAndType(fileUri, "video/mp4")
-                } else {
-                    setDataAndType(fileUri, "audio/mp4a-latm")
-                }
-                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            }
-
-            // Check if there's an app that can handle this intent
-            if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
-            } else {
-                Toast.makeText(
+            if (recording.isVideo) {
+                // For video files, use the external player as before
+                // Create content URI using FileProvider
+                val fileUri = FileProvider.getUriForFile(
                     this,
-                    "No app found to play ${if (recording.isVideo) "video" else "audio"}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                    "${applicationContext.packageName}.fileprovider",
+                    recording.file
+                )
+
+                // Create intent to play video file
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    setDataAndType(fileUri, "video/mp4")
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                }
+
+                // Check if there's an app that can handle this intent
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(
+                        this,
+                        "No app found to play video",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
+                // For audio files, use our built-in audio player
+                val intent = Intent(this, AudioPlayerActivity::class.java).apply {
+                    putExtra("audioPath", recording.file.absolutePath)
+                }
+                startActivity(intent)
             }
         } catch (e: Exception) {
             Toast.makeText(this, "Error playing file: ${e.message}", Toast.LENGTH_SHORT).show()
-            e.printStackTrace()
+            Log.e(TAG, "Error playing recording: ${e.message}", e)
         }
     }
 

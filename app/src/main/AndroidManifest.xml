@@ -81,6 +81,15 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/FullScreenNoTitleTheme" />
 
+        <activity
+            android:name=".AudioPlayerActivity"
+            android:exported="false"
+            android:label="@string/audio_player"
+            android:hardwareAccelerated="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".RecordingsBrowserActivity"
+            android:theme="@style/AppTheme" />
+
         <service
             android:name=".SecretRecorderService"
             android:enabled="true"
