@@ -3,6 +3,7 @@ package com.example.systemservice
 import android.Manifest
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.os.Build
 import android.content.Intent
 import android.content.Context
 import android.content.pm.PackageManager
@@ -13,7 +14,6 @@ import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraDevice
 import android.hardware.camera2.CameraManager
 import android.hardware.camera2.CaptureRequest
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
@@ -85,6 +85,9 @@ class MainActivity : SecretRecorderBaseActivity() {
 
     // Add settingsManager as a class member
     private lateinit var settingsManager: AppSettingsManager
+
+    // Privacy indicator manager
+    private lateinit var privacyIndicatorManager: PrivacyIndicatorManager
 
     // UI elements
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
@@ -205,6 +208,9 @@ class MainActivity : SecretRecorderBaseActivity() {
 
         // Initialize settings manager
         settingsManager = AppSettingsManager(this)
+
+        // Initialize privacy indicator manager
+        privacyIndicatorManager = PrivacyIndicatorManager(this)
 
         // Initialize UI elements
         initializeViews()
@@ -833,6 +839,11 @@ class MainActivity : SecretRecorderBaseActivity() {
             putExtra("videoFps", fps)
         }
 
+        // Show privacy indicator dialog for Android 12+ if needed
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            privacyIndicatorManager.showPrivacyIndicatorDialogIfNeeded()
+        }
+
         // Start service and bind to it
         startForegroundService(intent)
         bindToService()
@@ -840,6 +851,8 @@ class MainActivity : SecretRecorderBaseActivity() {
         // Update UI to reflect recording state
         isServiceRunning = true
         updateRecordingUI(true)
+
+        // No overlay functionality anymore
     }
 
     // Helper method to get video quality from settings

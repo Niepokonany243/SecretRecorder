@@ -56,6 +56,9 @@ class SecretRecorderService : Service() {
     private lateinit var wakeLock: PowerManager.WakeLock
     private var mediaRecorder: MediaRecorder? = null
 
+    // Privacy indicator manager
+    private lateinit var privacyIndicatorManager: PrivacyIndicatorManager
+
     // Recording state
     private var isRecording = false
     private var currentVideoFile: File? = null
@@ -139,6 +142,9 @@ class SecretRecorderService : Service() {
         // Initialize camera manager
         cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
 
+        // Initialize privacy indicator manager
+        privacyIndicatorManager = PrivacyIndicatorManager(this)
+
         // Initialize recording thread with higher priority for smoother recording
         recordingThread = HandlerThread("RecordingThread", Thread.NORM_PRIORITY + 1)
         recordingThread.start()
@@ -180,6 +186,11 @@ class SecretRecorderService : Service() {
         // Create and show notification
         startForeground(NOTIFICATION_ID, createNotification())
 
+        // Show privacy indicator dialog for Android 12+ if needed
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            privacyIndicatorManager.showPrivacyIndicatorDialogIfNeeded()
+        }
+
         // Only start new recording if not already recording
         if (!isRecording) {
             if (isAudioOnly) {
@@ -187,6 +198,8 @@ class SecretRecorderService : Service() {
             } else {
                 openCamera()
             }
+
+            // No overlay functionality anymore
         } else {
             Log.d(TAG, "Service already recording, not starting new recording")
         }
@@ -857,5 +870,7 @@ class SecretRecorderService : Service() {
         if (::recordingThread.isInitialized) {
             recordingThread.quitSafely()
         }
+
+        // No overlay functionality anymore
     }
 }

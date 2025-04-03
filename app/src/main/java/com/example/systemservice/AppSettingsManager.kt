@@ -22,6 +22,8 @@ class AppSettingsManager(private val context: Context) {
         private const val KEY_APP_PASSWORD = "app_password"
         private const val KEY_APP_PIN = "app_pin"
         private const val KEY_APP_THEME = "app_theme"
+        private const val KEY_PRIVACY_INDICATOR_DONT_SHOW = "privacy_indicator_dont_show"
+        private const val KEY_PRIVACY_INDICATOR_USE_OVERLAY = "privacy_indicator_use_overlay"
 
         // Default values
         private const val DEFAULT_VIDEO_QUALITY = "720p"
@@ -149,6 +151,9 @@ class AppSettingsManager(private val context: Context) {
 
         Log.d(TAG, "- App Theme: ${getAppTheme()}")
         Log.d(TAG, "- Dark Mode Active: ${shouldUseDarkMode()}")
+
+        Log.d(TAG, "- Privacy Indicator Don't Show: ${shouldHidePrivacyIndicatorDialog()}")
+        Log.d(TAG, "- Privacy Indicator Use Overlay: ${shouldUsePrivacyIndicatorOverlay()}")
     }
 
     // Add new keys for video encryption and storage location
@@ -199,5 +204,22 @@ class AppSettingsManager(private val context: Context) {
                 uiMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
             }
         }
+    }
+
+    // Privacy Indicator settings
+    fun shouldHidePrivacyIndicatorDialog(): Boolean {
+        return prefs.getBoolean(KEY_PRIVACY_INDICATOR_DONT_SHOW, false)
+    }
+
+    fun setShouldHidePrivacyIndicatorDialog(hide: Boolean) {
+        prefs.edit().putBoolean(KEY_PRIVACY_INDICATOR_DONT_SHOW, hide).apply()
+    }
+
+    fun shouldUsePrivacyIndicatorOverlay(): Boolean {
+        return prefs.getBoolean(KEY_PRIVACY_INDICATOR_USE_OVERLAY, false)
+    }
+
+    fun setShouldUsePrivacyIndicatorOverlay(useOverlay: Boolean) {
+        prefs.edit().putBoolean(KEY_PRIVACY_INDICATOR_USE_OVERLAY, useOverlay).apply()
     }
 }

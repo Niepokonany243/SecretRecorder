@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Privacy Indicator -->
+    <string name="privacy_indicator_title">Privacy Indicator Notice</string>
+    <string name="privacy_indicator_message">Starting with Android 12, the system may display a green or orange dot in the top-right corner when the camera or microphone is in use.</string>
+    <string name="dont_show_again">Don\'t show this message again</string>
+    <string name="adb_instructions_title">How to Disable the Privacy Indicator</string>
+    <string name="adb_instructions_message">You can disable the privacy indicator by using ADB (Android Debug Bridge) or LADB app from Play Store. This requires a one-time setup but will permanently hide the indicator dot.</string>
+    <string name="copy">Copy</string>
+    <string name="command_copied">Command copied to clipboard</string>
+</resources>
