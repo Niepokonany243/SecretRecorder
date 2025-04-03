@@ -7,6 +7,7 @@ import android.media.MediaMetadataRetriever
 import android.media.ThumbnailUtils
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
@@ -609,10 +610,46 @@ class RecordingsBrowserActivity : AppCompatActivity() {
     }
 
     private fun getOutputDirectory(): File {
+        // Try multiple storage options for better compatibility with MIUI and other custom ROMs
+
+        // Option 1: Use external media dirs (primary option)
         val mediaDir = externalMediaDirs.firstOrNull()?.let {
-            File(it, "Recordings").apply { mkdirs() }
+            File(it, "Recordings").apply {
+                if (!exists()) {
+                    val success = mkdirs()
+                    Log.d(TAG, "Creating directory ${absolutePath}, success: $success")
+                }
+            }
         }
-        return mediaDir ?: filesDir
+
+        // Option 2: Use external files dir as fallback
+        val externalFilesDir = getExternalFilesDir(Environment.DIRECTORY_MOVIES)?.let {
+            File(it, "Recordings").apply {
+                if (!exists()) {
+                    val success = mkdirs()
+                    Log.d(TAG, "Creating external files directory ${absolutePath}, success: $success")
+                }
+            }
+        }
+
+        // Option 3: Use internal storage as last resort
+        val internalDir = File(filesDir, "Recordings").apply {
+            if (!exists()) {
+                val success = mkdirs()
+                Log.d(TAG, "Creating internal directory ${absolutePath}, success: $success")
+            }
+        }
+
+        // Use the first available directory
+        val selectedDir = when {
+            mediaDir != null && mediaDir.canWrite() -> mediaDir
+            externalFilesDir != null && externalFilesDir.canWrite() -> externalFilesDir
+            internalDir.canWrite() -> internalDir
+            else -> filesDir // Last resort
+        }
+
+        Log.d(TAG, "Selected output directory: ${selectedDir.absolutePath}")
+        return selectedDir
     }
 
     private fun setupVideoPlayerControls() {

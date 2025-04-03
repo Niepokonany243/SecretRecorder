@@ -13,6 +13,7 @@ import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraDevice
 import android.hardware.camera2.CameraManager
 import android.hardware.camera2.CaptureRequest
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
@@ -265,14 +266,45 @@ class MainActivity : SecretRecorderBaseActivity() {
 
     private fun initializePermissionLauncher() {
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            // Log the permission results
+            Log.d(TAG, "Permission results:")
+            permissions.forEach { (permission, isGranted) ->
+                Log.d(TAG, "$permission: ${if (isGranted) "GRANTED" else "DENIED"}")
+            }
+
             val allGranted = permissions.entries.all { it.value }
+
             if (allGranted) {
+                Log.d(TAG, "All requested permissions were granted")
                 // Start background thread before setting up camera
                 startBackgroundThread()
                 setupCamera()
             } else {
-                Log.d(TAG, "Some permissions were denied")
-                Toast.makeText(this, getString(R.string.permissions_required), Toast.LENGTH_SHORT).show()
+                // Check which permissions were denied
+                val deniedPermissions = permissions.filter { !it.value }.keys.toList()
+                Log.d(TAG, "Some permissions were denied: $deniedPermissions")
+
+                // Check if camera or microphone permissions were denied
+                val cameraOrMicDenied = deniedPermissions.any {
+                    it == Manifest.permission.CAMERA || it == Manifest.permission.RECORD_AUDIO
+                }
+
+                if (cameraOrMicDenied) {
+                    // Only show toast if camera or mic permissions were denied
+                    Toast.makeText(this, getString(R.string.permissions_required), Toast.LENGTH_SHORT).show()
+
+                    // On Android 14+, provide more specific guidance
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                        Log.d(TAG, "Showing Android 14+ specific permission guidance")
+                        // Consider showing a dialog with more detailed instructions
+                        // or directing users to app settings
+                    }
+                } else {
+                    // If only non-essential permissions were denied, still proceed
+                    Log.d(TAG, "Only non-essential permissions were denied, proceeding with setup")
+                    startBackgroundThread()
+                    setupCamera()
+                }
             }
         }
     }
@@ -430,30 +462,65 @@ class MainActivity : SecretRecorderBaseActivity() {
     }
 
     private fun checkAndRequestPermissions() {
-        val permissions = arrayOf(
+        // Define required permissions based on Android version
+        val basePermissions = mutableListOf(
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.CAMERA,
             Manifest.permission.WAKE_LOCK
         )
 
+        // Add storage permissions for older Android versions
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            basePermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            basePermissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+
+        // Convert to array
+        val permissions = basePermissions.toTypedArray()
+
+        // Log permission check
+        Log.d(TAG, "Checking permissions on Android ${Build.VERSION.SDK_INT}")
+        permissions.forEach { permission ->
+            val isGranted = ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+            Log.d(TAG, "Permission $permission: ${if (isGranted) "GRANTED" else "DENIED"}")
+        }
+
+        // Filter permissions that need to be requested
         val permissionsToRequest = permissions.filter {
             ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
         }.toTypedArray()
 
+        Log.d(TAG, "Permissions to request: ${permissionsToRequest.joinToString()}")
+
         if (permissionsToRequest.isEmpty()) {
+            Log.d(TAG, "All permissions already granted, setting up camera")
             // Start background thread before setting up camera
             startBackgroundThread()
             setupCamera()
         } else {
+            Log.d(TAG, "Requesting permissions: ${permissionsToRequest.joinToString()}")
             permissionLauncher.launch(permissionsToRequest)
         }
     }
 
     private fun setupCamera() {
-        if (isAudioOnly) return
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+        if (isAudioOnly) {
+            Log.d(TAG, "Audio only mode, skipping camera setup")
             return
+        }
+
+        // Check camera permission
+        val cameraPermissionGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+        if (!cameraPermissionGranted) {
+            Log.d(TAG, "Camera permission not granted, cannot setup camera")
+            return
+        }
+
+        // Check audio permission as well since we need it for recording
+        val audioPermissionGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+        if (!audioPermissionGranted) {
+            Log.d(TAG, "Audio permission not granted, but proceeding with camera setup")
+            // We can still set up the camera preview even without audio permission
         }
 
         // Ensure the TextureView is available and has a valid size
@@ -717,6 +784,39 @@ class MainActivity : SecretRecorderBaseActivity() {
 
     private fun startCameraRecording() {
         Log.d(TAG, "Starting recording with mode: ${if (isAudioOnly) "audio only" else "video"}")
+
+        // Check required permissions before starting
+        val requiredPermissions = mutableListOf(Manifest.permission.RECORD_AUDIO)
+        if (!isAudioOnly) {
+            requiredPermissions.add(Manifest.permission.CAMERA)
+        }
+
+        // Check if we have all required permissions
+        val missingPermissions = requiredPermissions.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (missingPermissions.isNotEmpty()) {
+            Log.d(TAG, "Missing required permissions: $missingPermissions")
+
+            // Show a more helpful message based on which permissions are missing
+            val message = when {
+                missingPermissions.contains(Manifest.permission.CAMERA) &&
+                missingPermissions.contains(Manifest.permission.RECORD_AUDIO) ->
+                    "Camera and microphone permissions are required"
+                missingPermissions.contains(Manifest.permission.CAMERA) ->
+                    "Camera permission is required for video recording"
+                missingPermissions.contains(Manifest.permission.RECORD_AUDIO) ->
+                    "Microphone permission is required for recording"
+                else -> "Required permissions are missing"
+            }
+
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
+            // Request the missing permissions
+            permissionLauncher.launch(missingPermissions.toTypedArray())
+            return
+        }
 
         // Get quality settings from settings manager
         val quality = getVideoQualityFromSettings()

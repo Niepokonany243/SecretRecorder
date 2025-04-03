@@ -34,6 +34,7 @@ import android.hardware.camera2.CaptureRequest
 import android.app.PendingIntent
 import android.os.Binder
 import android.os.SystemClock
+import android.os.Environment
 
 class SecretRecorderService : Service() {
 
@@ -301,6 +302,18 @@ class SecretRecorderService : Service() {
 
             // Start recording
             try {
+                // Check if file can be written to before starting
+                if (!videoFile.canWrite() && videoFile.parentFile?.canWrite() == true) {
+                    Log.d(TAG, "File cannot be written to directly, but parent directory is writable")
+                }
+
+                // Log file details before starting
+                Log.d(TAG, "File path: ${videoFile.absolutePath}")
+                Log.d(TAG, "File exists: ${videoFile.exists()}")
+                Log.d(TAG, "Parent directory exists: ${videoFile.parentFile?.exists()}")
+                Log.d(TAG, "Parent directory writable: ${videoFile.parentFile?.canWrite()}")
+
+                // Start recording
                 mediaRecorder?.start()
                 isRecording = true
                 recordingStartTime = SystemClock.elapsedRealtime() // Store start time
@@ -316,6 +329,22 @@ class SecretRecorderService : Service() {
                         startVideoRecording()
                     }
                 }, 30, TimeUnit.MINUTES)
+
+                // Add a periodic check to ensure recording is still working
+                executor.scheduleAtFixedRate({
+                    if (isRecording) {
+                        // Check if file size is increasing
+                        val fileSize = videoFile.length()
+                        Log.d(TAG, "Current recording file size: $fileSize bytes")
+
+                        // If file doesn't exist or has zero size after some time, restart recording
+                        if (!videoFile.exists() || (SystemClock.elapsedRealtime() - recordingStartTime > 10000 && fileSize == 0L)) {
+                            Log.e(TAG, "Recording file not growing, restarting recording")
+                            stopVideoRecording()
+                            startVideoRecording()
+                        }
+                    }
+                }, 10, 30, TimeUnit.SECONDS)
             } catch (e: Exception) {
                 Log.e(TAG, "Failed to start MediaRecorder: ${e.message}")
                 e.printStackTrace()
@@ -324,6 +353,17 @@ class SecretRecorderService : Service() {
                 mediaRecorder?.reset()
                 mediaRecorder?.release()
                 mediaRecorder = null
+
+                // Try to delete the failed recording file
+                try {
+                    if (videoFile.exists()) {
+                        val deleted = videoFile.delete()
+                        Log.d(TAG, "Deleted failed recording file: $deleted")
+                    }
+                } catch (ex: Exception) {
+                    Log.e(TAG, "Error deleting failed recording file: ${ex.message}")
+                }
+
                 stopSelf()
             }
 
@@ -601,11 +641,46 @@ class SecretRecorderService : Service() {
     }
 
     private fun getOutputDirectory(): File {
-        // Store recordings in public directory for easier access
+        // Try multiple storage options for better compatibility with MIUI and other custom ROMs
+
+        // Option 1: Use external media dirs (primary option)
         val mediaDir = externalMediaDirs.firstOrNull()?.let {
-            File(it, "Recordings").apply { mkdirs() }
+            File(it, "Recordings").apply {
+                if (!exists()) {
+                    val success = mkdirs()
+                    Log.d(TAG, "Creating directory ${absolutePath}, success: $success")
+                }
+            }
         }
-        return mediaDir ?: filesDir
+
+        // Option 2: Use external files dir as fallback
+        val externalFilesDir = getExternalFilesDir(Environment.DIRECTORY_MOVIES)?.let {
+            File(it, "Recordings").apply {
+                if (!exists()) {
+                    val success = mkdirs()
+                    Log.d(TAG, "Creating external files directory ${absolutePath}, success: $success")
+                }
+            }
+        }
+
+        // Option 3: Use internal storage as last resort
+        val internalDir = File(filesDir, "Recordings").apply {
+            if (!exists()) {
+                val success = mkdirs()
+                Log.d(TAG, "Creating internal directory ${absolutePath}, success: $success")
+            }
+        }
+
+        // Use the first available directory
+        val selectedDir = when {
+            mediaDir != null && mediaDir.canWrite() -> mediaDir
+            externalFilesDir != null && externalFilesDir.canWrite() -> externalFilesDir
+            internalDir.canWrite() -> internalDir
+            else -> filesDir // Last resort
+        }
+
+        Log.d(TAG, "Selected output directory: ${selectedDir.absolutePath}")
+        return selectedDir
     }
 
     private fun createNotificationChannel() {
@@ -686,6 +761,17 @@ class SecretRecorderService : Service() {
                     prepare()
                 }
 
+                // Check if file can be written to before starting
+                if (!audioFile.canWrite() && audioFile.parentFile?.canWrite() == true) {
+                    Log.d(TAG, "Audio file cannot be written to directly, but parent directory is writable")
+                }
+
+                // Log file details before starting
+                Log.d(TAG, "Audio file path: ${audioFile.absolutePath}")
+                Log.d(TAG, "Audio file exists: ${audioFile.exists()}")
+                Log.d(TAG, "Audio parent directory exists: ${audioFile.parentFile?.exists()}")
+                Log.d(TAG, "Audio parent directory writable: ${audioFile.parentFile?.canWrite()}")
+
                 // Start recording
                 mediaRecorder?.start()
                 isRecording = true
@@ -701,6 +787,22 @@ class SecretRecorderService : Service() {
                         startAudioRecording()
                     }
                 }, 30, TimeUnit.MINUTES)
+
+                // Add a periodic check to ensure recording is still working
+                executor.scheduleAtFixedRate({
+                    if (isRecording) {
+                        // Check if file size is increasing
+                        val fileSize = audioFile.length()
+                        Log.d(TAG, "Current audio recording file size: $fileSize bytes")
+
+                        // If file doesn't exist or has zero size after some time, restart recording
+                        if (!audioFile.exists() || (SystemClock.elapsedRealtime() - recordingStartTime > 10000 && fileSize == 0L)) {
+                            Log.e(TAG, "Audio recording file not growing, restarting recording")
+                            stopVideoRecording() // This works for audio too
+                            startAudioRecording()
+                        }
+                    }
+                }, 10, 30, TimeUnit.SECONDS)
 
             } catch (e: Exception) {
                 Log.e(TAG, "Error preparing/starting audio recording: ${e.message}")
